@@ -189,6 +189,18 @@ private:
             }
         }
 
+        SmGui::LeftLabel("IF Gain");
+        SmGui::FillWidth();
+
+        int ifgain_minimum = sdr->port[1].ifgain.minimum;
+        int ifgain_maximum = sdr->port[1].ifgain.maximum;
+
+        if (SmGui::SliderInt(CONCAT("##_kcsdr_ifgain_", _this->name), &_this->ifGainLvl, ifgain_minimum, ifgain_maximum)) {
+            if (_this->running) {
+                sdr_handler->rx_amp(sdr, _this->ifGainLvl);
+            }
+        }
+
     }
 
     void applyProfile() {
@@ -249,6 +261,7 @@ private:
     int gainStratId = 0;
     int preampModeId = 0;
     int loModeId = 0;
+    int ifGainLvl = 0;
     int ampLvl = 0;
     int attLvl = 0;
     bool ifAgc = false;

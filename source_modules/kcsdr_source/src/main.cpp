@@ -168,8 +168,8 @@ private:
         SmGui::LeftLabel("Amp");
         SmGui::FillWidth();
 
-        int minimum = sdr->port[1].att.minimum;
-        int maximum = sdr->port[1].att.maximum * 1;
+        int minimum = sdr->port[1].amp.minimum;
+        int maximum = sdr->port[1].amp.maximum * 1;
 
         if (SmGui::SliderInt(CONCAT("##_kcsdr_amp_", _this->name), &_this->ampLvl, minimum, maximum)) {
             if (_this->running) {

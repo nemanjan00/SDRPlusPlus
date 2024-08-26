@@ -169,11 +169,12 @@ private:
         SmGui::FillWidth();
 
         int minimum = sdr->port[1].amp.minimum;
-        int maximum = sdr->port[1].amp.maximum * 1;
+        int maximum = sdr->port[1].amp.maximum;
+        int step = sdr->port[1].amp.step;
 
-        if (SmGui::SliderInt(CONCAT("##_kcsdr_amp_", _this->name), &_this->ampLvl, minimum, maximum)) {
+        if (SmGui::SliderFloatWithSteps(CONCAT("##_kcsdr_amp_", _this->name), &_this->ampLvl, minimum, maximum, step, SmGui::FMT_STR_FLOAT_DB_NO_DECIMAL)) {
             if (_this->running) {
-                sdr_handler->rx_ext_amp(sdr, _this->ampLvl);
+                sdr_handler->rx_ext_amp(sdr, (int)_this->ampLvl);
             }
         }
 
@@ -182,10 +183,11 @@ private:
 
         int att_minimum = sdr->port[1].att.minimum;
         int att_maximum = sdr->port[1].att.maximum * 1;
+        int att_step = sdr->port[1].att.step;
 
-        if (SmGui::SliderInt(CONCAT("##_kcsdr_att_", _this->name), &_this->attLvl, att_minimum, att_maximum)) {
+        if (SmGui::SliderFloatWithSteps(CONCAT("##_kcsdr_att_", _this->name), &_this->attLvl, att_minimum, att_maximum, att_step, SmGui::FMT_STR_FLOAT_DB_NO_DECIMAL)) {
             if (_this->running) {
-                sdr_handler->rx_att(sdr, _this->attLvl);
+                sdr_handler->rx_att(sdr, (int)_this->attLvl);
             }
         }
 
@@ -194,10 +196,11 @@ private:
 
         int ifgain_minimum = sdr->port[1].ifgain.minimum;
         int ifgain_maximum = sdr->port[1].ifgain.maximum;
+        int ifgain_step = sdr->port[1].ifgain.step;
 
-        if (SmGui::SliderInt(CONCAT("##_kcsdr_ifgain_", _this->name), &_this->ifGainLvl, ifgain_minimum, ifgain_maximum)) {
+        if (SmGui::SliderFloatWithSteps(CONCAT("##_kcsdr_ifgain_", _this->name), &_this->ifGainLvl, ifgain_minimum, ifgain_maximum, ifgain_step, SmGui::FMT_STR_FLOAT_DB_NO_DECIMAL)) {
             if (_this->running) {
-                sdr_handler->rx_amp(sdr, _this->ifGainLvl);
+                sdr_handler->rx_amp(sdr, (int)_this->ifGainLvl);
             }
         }
 
@@ -261,9 +264,9 @@ private:
     int gainStratId = 0;
     int preampModeId = 0;
     int loModeId = 0;
-    int ifGainLvl = 0;
-    int ampLvl = 0;
-    int attLvl = 0;
+    float ifGainLvl = 0;
+    float ampLvl = 0;
+    float attLvl = 0;
     bool ifAgc = false;
     std::string selectedSerial;
     int selectedDevIndex;

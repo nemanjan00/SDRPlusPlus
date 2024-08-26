@@ -121,7 +121,8 @@ private:
         KCSDRSourceModule* _this = (KCSDRSourceModule*)ctx;
         if (_this->running) { return; }
 
-        sdr_handler->rx_amp(sdr, 20);
+        sdr_handler->rx_amp(sdr, 0);
+        sdr_handler->rx_ext_amp(sdr, 0);
         sdr_handler->rx_bw(sdr, 40000000);
         sdr_handler->rx_start(sdr);
 
@@ -172,7 +173,7 @@ private:
 
         if (SmGui::SliderInt(CONCAT("##_kcsdr_amp_", _this->name), &_this->ampLvl, minimum, maximum)) {
             if (_this->running) {
-                sdr_handler->rx_amp(sdr, _this->ampLvl);
+                sdr_handler->rx_ext_amp(sdr, _this->ampLvl);
             }
         }
 

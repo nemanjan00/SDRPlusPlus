@@ -236,7 +236,7 @@ private:
             // Read data
             devMtx.unlock();
 
-            volk_16i_s32f_convert_32f((float*)&stream.writeBuf[(count++)*bufferSize], (int16_t*)d_buf, 8192.0f, realSamps);
+            volk_16i_s32f_convert_32f((float*)&stream.writeBuf[(count++)*bufferSize], (int16_t*)d_buf, 32768.0f, realSamps);
 
             // Send them off if we have enough
             if (count >= bufCount) {
